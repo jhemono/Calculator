@@ -11,6 +11,15 @@ import UIKit
 class ViewController: UIViewController {
     
     @IBOutlet weak var display: UILabel!
+    @IBOutlet weak var history: UILabel!
+    
+    func log(line: String) {
+        if history.text! == "Empty History" {
+            history.text = line
+        } else {
+            history.text! += " | " + line
+        }
+    }
     
     var userIsInTheMiddleOfTypingANumber = false
     
@@ -30,6 +39,9 @@ class ViewController: UIViewController {
     var operandStack = Array<Double>()
     
     @IBAction func enter() {
+        if userIsInTheMiddleOfTypingANumber {
+            log(display.text!)
+        }
         userIsInTheMiddleOfTypingANumber = false
         operandStack.append(displayValue)
         println("\(operandStack)")
@@ -44,50 +56,67 @@ class ViewController: UIViewController {
             userIsInTheMiddleOfTypingANumber = false
         }
     }
+    
+    typealias action = () -> ()
+    
     @IBAction func operand(sender: UIButton) {
-        let operation = sender.currentTitle!
         if userIsInTheMiddleOfTypingANumber {
             enter()
         }
+        let operation = sender.currentTitle!
+        var fun: action? = nil
         switch operation {
             case "×":
-                performOperation({$0 * $1})
+                fun = performOperation({$0 * $1})
             case "÷":
-                performOperation({$1 / $0})
+                fun = performOperation({$1 / $0})
             case "+":
-                performOperation({$0 + $1})
+                fun = performOperation({$0 + $1})
             case "−":
-                performOperation({$1 - $0})
+                fun = performOperation({$1 - $0})
             case "√":
-                performOperationUnary({sqrt($0)})
+                fun = performOperationUnary({sqrt($0)})
             case "sin":
-                performOperationUnary({sin($0)})
+                fun = performOperationUnary({sin($0)})
             case "cos":
-                performOperationUnary({cos($0)})
+                fun = performOperationUnary({cos($0)})
             case "π":
-                insertConstant(M_PI)
+                fun = insertConstant(M_PI)
             default:
-                break
+                fun = nil
+        }
+        if let fun = fun {
+            fun()
+            log(operation)
+            enter()
         }
     }
     
-    func performOperation(operation: (Double, Double) -> Double) {
+    func performOperation(operation: (Double, Double) -> Double) -> action? {
         if (operandStack.count >= 2) {
-            displayValue = operation(operandStack.removeLast(), operandStack.removeLast())
-            enter()
+            return { self.displayValue = operation(self.operandStack.removeLast(), self.operandStack.removeLast()) }
+        } else {
+            return nil
         }
     }
     
-    func performOperationUnary(operation: Double -> Double) {
+    func performOperationUnary(operation: Double -> Double) -> action? {
         if (operandStack.count >= 1) {
-            displayValue = operation(operandStack.removeLast())
-            enter()
+            return { self.displayValue = operation(self.operandStack.removeLast()) }
+        } else {
+            return nil
         }
     }
     
-    func insertConstant(constant: Double) {
-        displayValue = constant
-        enter()
+    func insertConstant(constant: Double) -> action? {
+        return { self.displayValue = constant }
+    }
+    
+    @IBAction func clear() {
+        userIsInTheMiddleOfTypingANumber = false
+        operandStack = []
+        display.text = "0"
+        history.text = "Empty History"
     }
 }
 
