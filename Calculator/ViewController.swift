@@ -64,6 +64,8 @@ class ViewController: UIViewController {
                 performOperationUnary({sin($0)})
             case "cos":
                 performOperationUnary({cos($0)})
+            case "π":
+                insertConstant(M_PI)
             default:
                 break
         }
@@ -81,6 +83,11 @@ class ViewController: UIViewController {
             displayValue = operation(operandStack.removeLast())
             enter()
         }
+    }
+    
+    func insertConstant(constant: Double) {
+        displayValue = constant
+        enter()
     }
 }
 
