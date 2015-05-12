@@ -56,6 +56,10 @@ class ViewController: UIViewController {
                 performOperation({$1 - $0})
             case "√":
                 performOperationUnary({sqrt($0)})
+            case "sin":
+                performOperationUnary({sin($0)})
+            case "cos":
+                performOperationUnary({cos($0)})
             default:
                 break
         }
