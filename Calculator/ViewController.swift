@@ -39,6 +39,37 @@ class ViewController: UIViewController {
         }
     }
     
+    @IBAction func plusMinus() {
+        if userIsInTheMiddleOfTypingANumber {
+            let plus: Character = "+", minus: Character = "-"
+            var char: Character?
+            var text = display.text!
+            if text.hasPrefix("+") {
+                text = dropFirst(text)
+                char = minus
+            } else if text.hasPrefix("-") {
+                text = dropFirst(text)
+            } else {
+                char = minus
+            }
+            if let char = char {
+                text.insert(char, atIndex: text.startIndex)
+            }
+            display.text = text
+        }
+    }
+    
+    @IBAction func backspace() {
+        let nbElements = count(display.text!)
+        if nbElements == 1 {
+            display.text = "0"
+            userIsInTheMiddleOfTypingANumber = false
+        } else {
+            display.text = dropLast(display.text!)
+            userIsInTheMiddleOfTypingANumber = true
+        }
+    }
+    
     @IBAction func enter() {
         if let value = displayValue,
                result = brain.pushOperand(value) {
