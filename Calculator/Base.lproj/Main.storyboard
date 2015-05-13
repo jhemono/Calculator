@@ -90,7 +90,7 @@
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
                                 <connections>
-                                    <action selector="operand:" destination="BYZ-38-t0r" eventType="touchUpInside" id="owz-Un-sdi"/>
+                                    <action selector="operate:" destination="BYZ-38-t0r" eventType="touchUpInside" id="l75-rx-hZp"/>
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Jfg-11-IOr">
@@ -100,7 +100,7 @@
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
                                 <connections>
-                                    <action selector="operand:" destination="BYZ-38-t0r" eventType="touchUpInside" id="L9I-uI-2G6"/>
+                                    <action selector="operate:" destination="BYZ-38-t0r" eventType="touchUpInside" id="6aS-Td-OB2"/>
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="EFt-pA-b6c">
@@ -110,7 +110,7 @@
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
                                 <connections>
-                                    <action selector="operand:" destination="BYZ-38-t0r" eventType="touchUpInside" id="hjJ-dZ-eDY"/>
+                                    <action selector="operate:" destination="BYZ-38-t0r" eventType="touchUpInside" id="FSu-3A-Nta"/>
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="RB9-qP-pKf">
@@ -120,7 +120,7 @@
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
                                 <connections>
-                                    <action selector="operand:" destination="BYZ-38-t0r" eventType="touchUpInside" id="gUW-vi-WIk"/>
+                                    <action selector="operate:" destination="BYZ-38-t0r" eventType="touchUpInside" id="maD-ML-htU"/>
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="N0N-gW-Sli">
@@ -130,7 +130,7 @@
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
                                 <connections>
-                                    <action selector="operand:" destination="BYZ-38-t0r" eventType="touchUpInside" id="bl5-N6-c6D"/>
+                                    <action selector="operate:" destination="BYZ-38-t0r" eventType="touchUpInside" id="sAG-GK-fY5"/>
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="iOF-SG-64l">
@@ -140,7 +140,7 @@
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
                                 <connections>
-                                    <action selector="operand:" destination="BYZ-38-t0r" eventType="touchUpInside" id="5Vh-g4-und"/>
+                                    <action selector="operate:" destination="BYZ-38-t0r" eventType="touchUpInside" id="r8x-MR-Y5x"/>
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="1bd-uE-m4n">
@@ -186,7 +186,7 @@
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
                                 <connections>
-                                    <action selector="operand:" destination="BYZ-38-t0r" eventType="touchUpInside" id="GOK-Hj-9RC"/>
+                                    <action selector="operate:" destination="BYZ-38-t0r" eventType="touchUpInside" id="55u-hb-adB"/>
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="cl1-kI-GQb">
