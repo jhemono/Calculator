@@ -56,8 +56,7 @@ class ViewController: UIViewController {
     @IBAction func backspace() {
         let nbElements = count(display.text!)
         if nbElements == 1 {
-            display.text = "0"
-            userIsInTheMiddleOfTypingANumber = false
+            initializeEditor()
         } else {
             display.text = dropLast(display.text!)
             userIsInTheMiddleOfTypingANumber = true
@@ -106,10 +105,13 @@ class ViewController: UIViewController {
         performOperation(sender.currentTitle!)
     }
     
-    @IBAction func clear() {
-        brain.clear()
+    private func initializeEditor () {
         userIsInTheMiddleOfTypingANumber = false
         display.text = "0"
+    }
+    
+    @IBAction func clear() {
+        brain.clear()
         history.text = "Empty History"
     }
 }
