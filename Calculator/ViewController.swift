@@ -41,7 +41,7 @@ class ViewController: UIViewController {
     
     @IBAction func plusMinus() {
         if userIsInTheMiddleOfTypingANumber {
-            let plus: Character = "+", minus: Character = "-"
+            let minus: Character = "-"
             var char: Character?
             var text = display.text!
             if text.hasPrefix("+") {
