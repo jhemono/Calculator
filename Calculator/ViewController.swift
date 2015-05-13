@@ -41,19 +41,11 @@ class ViewController: UIViewController {
     
     @IBAction func plusMinus() {
         if userIsInTheMiddleOfTypingANumber {
-            let minus: Character = "-"
-            var char: Character?
             var text = display.text!
-            if text.hasPrefix("+") {
-                text = dropFirst(text)
-                char = minus
-            } else if text.hasPrefix("-") {
+            if first(text) == "-" {
                 text = dropFirst(text)
             } else {
-                char = minus
-            }
-            if let char = char {
-                text.insert(char, atIndex: text.startIndex)
+                text.insert("-", atIndex: text.startIndex)
             }
             display.text = text
         }
