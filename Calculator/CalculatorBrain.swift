@@ -52,6 +52,7 @@ class CalculatorBrain
         addUnaryOp("√", sqrt)
         addUnaryOp("sin", sin)
         addUnaryOp("cos", cos)
+        addUnaryOp("±", -)
         knownOps["π"] = Op.Operand(M_PI)
     }
     

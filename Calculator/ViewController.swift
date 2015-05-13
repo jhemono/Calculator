@@ -48,6 +48,8 @@ class ViewController: UIViewController {
                 text.insert("-", atIndex: text.startIndex)
             }
             display.text = text
+        } else {
+            performOperation("±")
         }
     }
     
@@ -86,19 +88,22 @@ class ViewController: UIViewController {
         }
     }
     
+    private func performOperation (symbol: String) {
+        if let result = brain.performOperation(symbol) {
+            displayValue = result
+            log(symbol)
+            log("=")
+            
+        } else {
+            displayValue = nil
+        }
+    }
+    
     @IBAction func operate(sender: UIButton) {
         if userIsInTheMiddleOfTypingANumber {
             enter()
         }
-        let operation = sender.currentTitle!
-        if let result = brain.performOperation(operation) {
-            displayValue = result
-            log(operation)
-            log("=")
-
-        } else {
-            displayValue = nil
-        }
+        performOperation(sender.currentTitle!)
     }
     
     @IBAction func clear() {
