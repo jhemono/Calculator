@@ -125,43 +125,44 @@ class CalculatorBrain
         return evaluate()
     }
     
-    private func evaluate (ops: [Op]) -> (result: Double?, remainingOps: [Op])
+    private func evaluate (ops: [Op]) -> (result: Double, remainingOps: [Op])?
     {
         if !ops.isEmpty {
-            var remainingOps = ops
-            let op = remainingOps.removeLast()
+            var remainder = ops
+            let op = remainder.removeLast()
             switch op {
             case .Operand(let operand):
-                return (operand, remainingOps)
+                return (operand, remainder)
             case .ConstantOperand(_, let operand):
-                return (operand, remainingOps)
+                return (operand, remainder)
             case .VariableOperand(let symbol):
                 if let value = variableValues[symbol] {
-                    return (value, remainingOps)
+                    return (value, remainder)
                 }
             case .UnaryOperation(_, let operation):
-                let operandEvalutation = evaluate(remainingOps)
-                if let operand = operandEvalutation.result {
-                    return (operation(operand), operandEvalutation.remainingOps)
+                if let (operand, remainder) = evaluate(remainder) {
+                    return (operation(operand), remainder)
                 }
             case .BinaryOperation(_, let operation):
-                let op2Evalutation = evaluate(remainingOps)
-                if let operand2 = op2Evalutation.result {
-                    let op1Evalutation = evaluate(op2Evalutation.remainingOps)
-                    if let operand1 = op1Evalutation.result {
-                        return (operation(operand1, operand2), op2Evalutation.remainingOps)
+                if let (operand2, remainder) = evaluate(remainder) {
+                    if let (operand1, remainder) = evaluate(remainder) {
+                        return (operation(operand1, operand2), remainder)
                     }
                 }
             }
         }
-        return (nil, ops)
+        return nil
     }
     
     func evaluate () -> Double?
     {
-        let (result, remainder) = evaluate(opStack)
-        println("\(opStack) = \(result) with \(remainder) left over")
-        return result
+        if let (result, remainder) = evaluate(opStack) {
+            println("\(opStack) = \(result) with \(remainder) left over")
+            return result
+        } else {
+            println("invalid computation for stack \(opStack)")
+            return nil
+        }
     }
     
     func clear () {
