@@ -93,7 +93,6 @@ class CalculatorBrain
         }
     }
 
-    
     var description: String? {
         var parts = [String]()
         var stack = opStack
@@ -179,6 +178,13 @@ class CalculatorBrain
             println("invalid computation for stack \(opStack)")
             return nil
         }
+    }
+    
+    func pop() -> Double? {
+        if opStack.count > 1 {
+            opStack.removeLast()
+        }
+        return evaluate()
     }
     
     func clear () {

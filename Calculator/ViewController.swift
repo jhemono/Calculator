@@ -46,12 +46,15 @@ class ViewController: UIViewController {
     }
     
     @IBAction func backspace() {
-        let nbElements = count(display.text!)
-        if nbElements == 1 {
-            initializeEditor()
+        if userIsInTheMiddleOfTypingANumber {
+            let nbElements = count(display.text!)
+            if nbElements == 1 {
+                initializeEditor()
+            } else {
+                display.text = dropLast(display.text!)
+            }
         } else {
-            display.text = dropLast(display.text!)
-            userIsInTheMiddleOfTypingANumber = true
+            displayValue = brain.pop()
         }
     }
     
