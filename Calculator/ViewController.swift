@@ -19,7 +19,7 @@ class ViewController: UIViewController {
         if history.text! == "Empty History" {
             history.text = line
         } else {
-            history.text! += " | " + line
+            history.text! += " " + line
         }
     }
     
@@ -67,6 +67,7 @@ class ViewController: UIViewController {
         if let value = displayValue,
                result = brain.pushOperand(value) {
             log(display.text!)
+            log("⏎")
             userIsInTheMiddleOfTypingANumber = false
             displayValue = result
         } else {
@@ -91,7 +92,6 @@ class ViewController: UIViewController {
         if let result = brain.performOperation(symbol) {
             displayValue = result
             log(symbol)
-            log("=")
             
         } else {
             displayValue = nil
