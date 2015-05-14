@@ -117,7 +117,7 @@ class ViewController: UIViewController {
         brain.clear()
         initializeEditor()
         brain.variableValues = [String:Double]()
-        history.text = ""
+        history.text = " "
     }
 }
 
