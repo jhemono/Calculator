@@ -14,15 +14,7 @@ class ViewController: UIViewController {
     @IBOutlet weak var history: UILabel!
     
     private let brain = CalculatorBrain()
-    
-    private func log(line: String) {
-        if history.text! == "Empty History" {
-            history.text = line
-        } else {
-            history.text! += " " + line
-        }
-    }
-    
+
     private var userIsInTheMiddleOfTypingANumber = false
     
     @IBAction func appendDigit(sender: UIButton) {
@@ -66,8 +58,6 @@ class ViewController: UIViewController {
     @IBAction func enter() {
         if let value = displayValue,
                result = brain.pushOperand(value) {
-            log(display.text!)
-            log("⏎")
             userIsInTheMiddleOfTypingANumber = false
             displayValue = result
         } else {
@@ -80,6 +70,7 @@ class ViewController: UIViewController {
             return NSNumberFormatter().numberFromString(display.text!)?.doubleValue
         }
         set {
+            history.text = brain.description
             if let newValue = newValue {
                 display.text = "\(newValue)"
             } else {
@@ -91,7 +82,6 @@ class ViewController: UIViewController {
     private func performOperation (symbol: String) {
         if let result = brain.performOperation(symbol) {
             displayValue = result
-            log(symbol)
             
         } else {
             displayValue = nil
