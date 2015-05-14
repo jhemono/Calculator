@@ -54,7 +54,7 @@ class CalculatorBrain
             case .BinaryOperation(_, _):
                 if let (op1, remainder) = describe (remainder) {
                     if let (op2, remainder) = describe (remainder) {
-                        return ("\(op1) \(top.description) \(op2)", remainder)
+                        return ("\(op2) \(top.description) \(op1)", remainder)
                     }
                 }
             }
