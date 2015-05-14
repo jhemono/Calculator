@@ -112,6 +112,7 @@ class ViewController: UIViewController {
     
     @IBAction func clear() {
         brain.clear()
+        initializeEditor()
         history.text = "Empty History"
     }
 }
