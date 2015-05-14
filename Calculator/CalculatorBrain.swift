@@ -13,6 +13,7 @@ class CalculatorBrain
     private enum Op: Printable
     {
         case Operand(Double)
+        case VariableOperand(String)
         case UnaryOperation(String, Double -> Double)
         case BinaryOperation(String, (Double, Double) -> Double)
         
@@ -21,6 +22,8 @@ class CalculatorBrain
                 switch self {
                 case .Operand(let operand):
                     return operand.description
+                case .VariableOperand(let symbol):
+                    return symbol
                 case .UnaryOperation(let symbol, _):
                     return symbol
                 case .BinaryOperation(let symbol, _):
@@ -29,6 +32,8 @@ class CalculatorBrain
             }
         }
     }
+    
+    var variableValues = [String:Double]()
     
     private var knownOps = [String:Op]()
     
@@ -39,6 +44,8 @@ class CalculatorBrain
             var remainder = Array(dropFirst(stack))
             switch top {
             case .Operand(_):
+                return (top.description, remainder)
+            case .VariableOperand(let symbol):
                 return (top.description, remainder)
             case .UnaryOperation(_, _):
                 if let (op1, remainder) = describe(remainder) {
@@ -88,6 +95,11 @@ class CalculatorBrain
         return evaluate()
     }
     
+    func pushOperand(symbol: String) -> Double? {
+        opStack.append(Op.VariableOperand(symbol))
+        return evaluate()
+    }
+    
     func performOperation (symbol: String) -> Double?
     {
         if let operation = knownOps[symbol]
@@ -104,6 +116,10 @@ class CalculatorBrain
             switch op {
             case .Operand(let operand):
                 return (operand, remainingOps)
+            case .VariableOperand(let symbol):
+                if let value = variableValues[symbol] {
+                    return (value, remainingOps)
+                }
             case .UnaryOperation(_, let operation):
                 let operandEvalutation = evaluate(remainingOps)
                 if let operand = operandEvalutation.result {
