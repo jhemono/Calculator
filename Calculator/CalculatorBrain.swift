@@ -181,7 +181,7 @@ class CalculatorBrain
     }
     
     func pop() -> Double? {
-        if opStack.count > 1 {
+        if opStack.count > 0 {
             opStack.removeLast()
         }
         return evaluate()
