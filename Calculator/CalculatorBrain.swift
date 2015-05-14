@@ -44,23 +44,32 @@ class CalculatorBrain
     
     private func describe (stack: [Op]) -> (description: String, remainder: [Op])? {
         if let top = last(stack) {
-            var remainder = Array(dropLast(stack))
+            var remainder = [Op](dropLast(stack))
             switch top {
             case .Operand(_), .VariableOperand(_), .ConstantOperand(_, _):
                 return (top.description, remainder)
             case .UnaryOperation(_, _):
-                if let (op1, remainder) = describe(remainder) {
-                    return ("\(top.description)(\(op1))", remainder)
+                var part1 = "?"
+                if let (op1, remainder1) = describe(remainder) {
+                    part1 = op1
+                    remainder = remainder1
                 }
+                return ("\(top.description)(\(part1))", remainder)
             case .BinaryOperation(_, _):
-                if let (op2, remainder) = describe (remainder) {
-                    if let (op1, remainder) = describe (remainder) {
-                        return ("\(op1) \(top.description) \(op2)", remainder)
-                    }
+                var part1 = "?", part2 = "?"
+                if let (op2, remainder2) = describe (remainder) {
+                    part2 = op2
+                    remainder = remainder2
                 }
+                if let (op1, remainder1) = describe (remainder) {
+                    part1 = op1
+                    remainder = remainder1
+                }
+                return ("\(part1) \(top.description) \(part2)", remainder)
             }
+        } else {
+            return nil
         }
-        return nil
     }
 
     
