@@ -53,9 +53,9 @@ class CalculatorBrain
                     return ("\(top.description)(\(op1))", remainder)
                 }
             case .BinaryOperation(_, _):
-                if let (op1, remainder) = describe (remainder) {
-                    if let (op2, remainder) = describe (remainder) {
-                        return ("\(op2) \(top.description) \(op1)", remainder)
+                if let (op2, remainder) = describe (remainder) {
+                    if let (op1, remainder) = describe (remainder) {
+                        return ("\(op1) \(top.description) \(op2)", remainder)
                     }
                 }
             }
@@ -65,7 +65,13 @@ class CalculatorBrain
 
     
     var description: String? {
-        return describe(opStack)?.description
+        var parts = [String]()
+        var stack = opStack
+        while let (part, remainder) = describe(stack) {
+            parts.append(part)
+            stack = remainder
+        }
+        return ", ".join(reverse(parts))
     }
     
     init()
