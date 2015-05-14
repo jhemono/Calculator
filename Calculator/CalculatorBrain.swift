@@ -43,9 +43,7 @@ class CalculatorBrain
         if let top = last(stack) {
             var remainder = Array(dropLast(stack))
             switch top {
-            case .Operand(_):
-                return (top.description, remainder)
-            case .VariableOperand(let symbol):
+            case .Operand(_), .VariableOperand(_):
                 return (top.description, remainder)
             case .UnaryOperation(_, _):
                 if let (op1, remainder) = describe(remainder) {
