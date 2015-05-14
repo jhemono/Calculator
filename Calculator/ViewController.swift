@@ -15,7 +15,17 @@ class ViewController: UIViewController {
     
     private let brain = CalculatorBrain()
 
-    private var userIsInTheMiddleOfTypingANumber = false
+    private var userIsInTheMiddleOfTypingANumber = false {
+        didSet {
+            if oldValue != userIsInTheMiddleOfTypingANumber {
+                if userIsInTheMiddleOfTypingANumber {
+                    if let rangeOfEqual = history.text!.rangeOfString(" =") {
+                        history.text!.removeRange(rangeOfEqual)
+                    }
+                }
+            }
+        }
+    }
     
     @IBAction func appendDigit(sender: UIButton) {
         let digit = sender.currentTitle!
@@ -76,6 +86,7 @@ class ViewController: UIViewController {
             history.text = brain.description ?? " "
             if let newValue = newValue {
                 display.text = "\(newValue)"
+                history.text! += " ="
             } else {
                 display.text = " "
             }
