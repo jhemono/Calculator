@@ -14,6 +14,7 @@ class CalculatorBrain
     {
         case Operand(Double)
         case VariableOperand(String)
+        case ConstantOperand(String, Double)
         case UnaryOperation(String, Double -> Double)
         case BinaryOperation(String, (Double, Double) -> Double)
         
@@ -23,6 +24,8 @@ class CalculatorBrain
                 case .Operand(let operand):
                     return operand.description
                 case .VariableOperand(let symbol):
+                    return symbol
+                case .ConstantOperand(let symbol, _):
                     return symbol
                 case .UnaryOperation(let symbol, _):
                     return symbol
@@ -43,7 +46,7 @@ class CalculatorBrain
         if let top = last(stack) {
             var remainder = Array(dropLast(stack))
             switch top {
-            case .Operand(_), .VariableOperand(_):
+            case .Operand(_), .VariableOperand(_), .ConstantOperand(_, _):
                 return (top.description, remainder)
             case .UnaryOperation(_, _):
                 if let (op1, remainder) = describe(remainder) {
@@ -84,7 +87,7 @@ class CalculatorBrain
         addUnaryOp("sin", sin)
         addUnaryOp("cos", cos)
         addUnaryOp("±", -)
-        knownOps["π"] = Op.Operand(M_PI)
+        knownOps["π"] = .ConstantOperand("π", M_PI)
     }
     
     func pushOperand(operand: Double) -> Double?
@@ -102,7 +105,8 @@ class CalculatorBrain
     {
         if let operation = knownOps[symbol]
         {
-            opStack.append(operation)        }
+            opStack.append(operation)
+        }
         return evaluate()
     }
     
@@ -113,6 +117,8 @@ class CalculatorBrain
             let op = remainingOps.removeLast()
             switch op {
             case .Operand(let operand):
+                return (operand, remainingOps)
+            case .ConstantOperand(_, let operand):
                 return (operand, remainingOps)
             case .VariableOperand(let symbol):
                 if let value = variableValues[symbol] {
