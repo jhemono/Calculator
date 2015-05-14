@@ -74,18 +74,13 @@ class ViewController: UIViewController {
             if let newValue = newValue {
                 display.text = "\(newValue)"
             } else {
-                display.text = "???"
+                display.text = " "
             }
         }
     }
     
     private func performOperation (symbol: String) {
-        if let result = brain.performOperation(symbol) {
-            displayValue = result
-            
-        } else {
-            displayValue = nil
-        }
+        displayValue = brain.performOperation(symbol)
     }
     
     @IBAction func operate(sender: UIButton) {
