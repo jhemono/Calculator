@@ -40,8 +40,8 @@ class CalculatorBrain
     private var opStack = [Op]()
     
     private func describe (stack: [Op]) -> (description: String, remainder: [Op])? {
-        if let top = first(stack) {
-            var remainder = Array(dropFirst(stack))
+        if let top = last(stack) {
+            var remainder = Array(dropLast(stack))
             switch top {
             case .Operand(_):
                 return (top.description, remainder)
