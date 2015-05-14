@@ -34,6 +34,32 @@ class CalculatorBrain
     
     private var opStack = [Op]()
     
+    private func describe (stack: [Op]) -> (description: String, remainder: [Op])? {
+        if let top = first(stack) {
+            var remainder = Array(dropFirst(stack))
+            switch top {
+            case .Operand(_):
+                return (top.description, remainder)
+            case .UnaryOperation(_, _):
+                if let (op1, remainder) = describe(remainder) {
+                    return ("\(top.description)(\(op1))", remainder)
+                }
+            case .BinaryOperation(_, _):
+                if let (op1, remainder) = describe (remainder) {
+                    if let (op2, remainder) = describe (remainder) {
+                        return ("\(op1) \(top.description) \(op2)", remainder)
+                    }
+                }
+            }
+        }
+        return nil
+    }
+
+    
+    var description: String? {
+        return describe(opStack)?.description
+    }
+    
     init()
     {
         func addBinaryOp (op: String, fun: (Double, Double) -> Double)
