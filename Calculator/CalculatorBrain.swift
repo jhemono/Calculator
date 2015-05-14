@@ -100,7 +100,11 @@ class CalculatorBrain
             parts.append(part)
             stack = remainder
         }
-        return ", ".join(reverse(parts))
+        if parts.count == 0 {
+            return nil
+        } else {
+            return ", ".join(reverse(parts))
+        }
     }
     
     init()

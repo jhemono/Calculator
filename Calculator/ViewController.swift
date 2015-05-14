@@ -73,7 +73,7 @@ class ViewController: UIViewController {
             return NSNumberFormatter().numberFromString(display.text!)?.doubleValue
         }
         set {
-            history.text = brain.description
+            history.text = brain.description ?? " "
             if let newValue = newValue {
                 display.text = "\(newValue)"
             } else {
