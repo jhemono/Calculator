@@ -95,6 +95,21 @@ class ViewController: UIViewController {
         performOperation(sender.currentTitle!)
     }
     
+    @IBAction func insertVariable(sender: UIButton) {
+        if userIsInTheMiddleOfTypingANumber {
+            enter()
+        }
+        let variable = sender.currentTitle!
+        displayValue = brain.pushOperand(variable)
+    }
+    
+    @IBAction func setVariable(sender: UIButton) {
+        let variable = String(dropFirst(sender.currentTitle!))
+        brain.variableValues[variable] = displayValue
+        displayValue = brain.evaluate()
+        userIsInTheMiddleOfTypingANumber = false
+    }
+    
     private func initializeEditor () {
         userIsInTheMiddleOfTypingANumber = false
         display.text = "0"
@@ -103,6 +118,7 @@ class ViewController: UIViewController {
     @IBAction func clear() {
         brain.clear()
         initializeEditor()
+        brain.variableValues = [String:Double]()
         history.text = "Empty History"
     }
 }
