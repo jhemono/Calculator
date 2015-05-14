@@ -79,9 +79,9 @@ class CalculatorBrain
         }
         
         addBinaryOp("×", *)
-        addBinaryOp("÷") { $1 / $0 }
+        addBinaryOp("÷", /)
         addBinaryOp("+", +)
-        addBinaryOp("−") { $1 - $0 }
+        addBinaryOp("−", -)
         addUnaryOp("√", sqrt)
         addUnaryOp("sin", sin)
         addUnaryOp("cos", cos)
@@ -126,10 +126,10 @@ class CalculatorBrain
                     return (operation(operand), operandEvalutation.remainingOps)
                 }
             case .BinaryOperation(_, let operation):
-                let op1Evalutation = evaluate(remainingOps)
-                if let operand1 = op1Evalutation.result {
-                    let op2Evalutation = evaluate(op1Evalutation.remainingOps)
-                    if let operand2 = op2Evalutation.result {
+                let op2Evalutation = evaluate(remainingOps)
+                if let operand2 = op2Evalutation.result {
+                    let op1Evalutation = evaluate(op2Evalutation.remainingOps)
+                    if let operand1 = op1Evalutation.result {
                         return (operation(operand1, operand2), op2Evalutation.remainingOps)
                     }
                 }
