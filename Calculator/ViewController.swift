@@ -127,7 +127,7 @@ class ViewController: UIViewController {
     @IBAction func clear() {
         brain.clear()
         initializeEditor()
-        brain.variableValues = [String:Double]()
+        brain.variableValues.removeAll(keepCapacity: true)
         history.text = " "
     }
 }
