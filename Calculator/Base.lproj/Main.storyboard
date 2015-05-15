@@ -285,6 +285,9 @@
                                 <state key="normal" title="🎢">
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
+                                <connections>
+                                    <segue destination="ONv-W5-WZy" kind="showDetail" identifier="Graph" id="Kgu-aM-Vu1"/>
+                                </connections>
                             </button>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
@@ -426,6 +429,24 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="401" y="341"/>
+        </scene>
+        <!--Graph View Controller-->
+        <scene sceneID="5OH-I9-VVV">
+            <objects>
+                <viewController id="ONv-W5-WZy" customClass="GraphViewController" customModule="Calculator" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="e1P-ld-M1n"/>
+                        <viewControllerLayoutGuide type="bottom" id="Tjj-gB-e6b"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="rqL-K5-Oji">
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    </view>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="oc4-bO-Xyt" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="401" y="1305"/>
         </scene>
     </scenes>
 </document>
