@@ -444,10 +444,10 @@
             </objects>
             <point key="canvasLocation" x="-870" y="836"/>
         </scene>
-        <!--Graph View Controller-->
+        <!--Function Graph View Controller-->
         <scene sceneID="5OH-I9-VVV">
             <objects>
-                <viewController id="ONv-W5-WZy" customClass="GraphViewController" customModule="Calculator" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="ONv-W5-WZy" customClass="FunctionGraphViewController" customModule="Calculator" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="e1P-ld-M1n"/>
                         <viewControllerLayoutGuide type="bottom" id="Tjj-gB-e6b"/>
