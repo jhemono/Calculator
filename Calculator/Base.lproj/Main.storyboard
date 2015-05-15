@@ -5,7 +5,7 @@
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
     </dependencies>
     <scenes>
-        <!--Calculator View Controller-->
+        <!--Calculator-->
         <scene sceneID="tne-QT-ifu">
             <objects>
                 <viewController id="BYZ-38-t0r" customClass="CalculatorViewController" customModule="Calculator" customModuleProvider="target" sceneMemberID="viewController">
@@ -421,7 +421,7 @@
                             </mask>
                         </variation>
                     </view>
-                    <navigationItem key="navigationItem" id="R7r-0h-lg1"/>
+                    <navigationItem key="navigationItem" title="Calculator" id="R7r-0h-lg1"/>
                     <connections>
                         <outlet property="display" destination="z6y-pf-XIh" id="Fbc-aO-dSR"/>
                         <outlet property="history" destination="DDY-d7-pWI" id="lvH-DQ-697"/>
