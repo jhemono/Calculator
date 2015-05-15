@@ -60,30 +60,18 @@ class CalculatorBrain
             case .UnaryOperation(_):
                 var part1 = "?"
                 if let (op1, remainder1, precedence) = describe(remainder) {
-                    if (precedence < top.precedence) {
-                        part1 = "(\(op1))"
-                    } else {
-                        part1 = " \(op1)"
-                    }
+                    part1 = precedence < top.precedence ? "(\(op1))" : " \(op1)"
                     remainder = remainder1
                 }
                 return ("\(top.description)\(part1)", remainder, top.precedence)
             case .BinaryOperation(_):
                 var part1 = "?", part2 = "?"
                 if let (op2, remainder2, precedence2) = describe (remainder) {
-                    if (precedence2 < top.precedence) {
-                        part2 = "(\(op2))"
-                    } else {
-                        part2 = op2
-                    }
+                    part2 = precedence2 < top.precedence ? "(\(op2))" : op2
                     remainder = remainder2
                 }
                 if let (op1, remainder1, precedence1) = describe (remainder) {
-                    if (precedence1 <= top.precedence) {
-                        part1 = "(\(op1))"
-                    } else {
-                        part1 = op1
-                    }
+                    part1 = precedence1 <= top.precedence ? "(\(op1))" : op1
                     remainder = remainder1
                 }
                 return ("\(part1) \(top.description) \(part2)", remainder, top.precedence)
