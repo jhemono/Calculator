@@ -11,7 +11,10 @@ import UIKit
 @IBDesignable
 class GraphView: UIView {
     
-    let axesDrawer = AxesDrawer()
+    lazy var axesDrawer: AxesDrawer = {
+        [unowned self] in
+        AxesDrawer(contentScaleFactor: self.contentScaleFactor)
+    }()
     
     var originOffset = CGPointZero // Position of the origin with repect to the center of the view
     
@@ -25,7 +28,6 @@ class GraphView: UIView {
     // Only override drawRect: if you perform custom drawing.
     // An empty implementation adversely affects performance during animation.
     override func drawRect(rect: CGRect) {
-        axesDrawer.contentScaleFactor = contentScaleFactor
         axesDrawer.drawAxesInRect(rect, origin: origin, pointsPerUnit: scale)
     }
 
