@@ -20,11 +20,43 @@ class GraphView: UIView {
         AxesDrawer(contentScaleFactor: self.contentScaleFactor)
     }()
     
-    var originOffset = CGPointZero // Position of the origin with repect to the center of the view
+    // Origin business
+    
+    var originOffset = CGPointZero { // Position of the origin with repect to the center of the view
+        didSet { self.setNeedsDisplay() }
+    }
     
     var origin: CGPoint { // Position of the origin in the views coordinate system
         let centre = convertPoint(center, fromView: superview)
         return CGPoint(x: centre.x + originOffset.x, y: centre.y + originOffset.y)
+    }
+    
+    @IBInspectable
+    var pannable: Bool = false {
+        didSet (oldPannable) {
+            if (pannable != oldPannable) { // If changed pannable
+                if pannable {
+                    addGestureRecognizer(panRecognizer)
+                } else {
+                    removeGestureRecognizer(panRecognizer)
+                }
+            }
+        }
+    }
+    private lazy var panRecognizer: UIPanGestureRecognizer = UIPanGestureRecognizer(target: self, action: "pan:")
+    
+    func pan(gesture: UIPanGestureRecognizer) {
+        switch gesture.state {
+        case .Ended, .Changed:
+            let translation = gesture.translationInView(self)
+            if translation != CGPointZero {
+                originOffset.x += translation.x
+                originOffset.y += translation.y
+                gesture.setTranslation(CGPointZero, inView: self)
+            }
+        default:
+            break
+        }
     }
     
     var scale: CGFloat = 100
