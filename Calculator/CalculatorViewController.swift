@@ -83,7 +83,8 @@ class CalculatorViewController: UIViewController {
             return NSNumberFormatter().numberFromString(display.text!)?.doubleValue
         }
         set {
-            history.text = brain.description ?? " "
+            let description = brain.description
+            history.text = description.isEmpty ? " " : ", ".join(description)
             if let newValue = newValue {
                 display.text = "\(newValue)"
                 history.text! += " ="

@@ -81,18 +81,14 @@ class CalculatorBrain
         }
     }
 
-    var description: String? {
+    var description: [String] {
         var parts = [String]()
         var stack = opStack
         while let (part, remainder, _) = describe(stack) {
             parts.append(part)
             stack = remainder
         }
-        if parts.count == 0 {
-            return nil
-        } else {
-            return ", ".join(reverse(parts))
-        }
+        return reverse(parts)
     }
     
     init()
