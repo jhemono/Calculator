@@ -13,17 +13,20 @@ class GraphView: UIView {
     
     let axesDrawer = AxesDrawer()
     
-    var originOffset = CGPointZero
+    var originOffset = CGPointZero // Position of the origin with repect to the center of the view
     
-    var origin: CGPoint {
+    var origin: CGPoint { // Position of the origin in the views coordinate system
         let centre = convertPoint(center, fromView: superview)
         return CGPoint(x: centre.x + originOffset.x, y: centre.y + originOffset.y)
     }
+    
+    var scale: CGFloat = 1
 
     // Only override drawRect: if you perform custom drawing.
     // An empty implementation adversely affects performance during animation.
     override func drawRect(rect: CGRect) {
-        axesDrawer.drawAxesInRect(rect, origin: origin, pointsPerUnit: 1)
+        axesDrawer.contentScaleFactor = contentScaleFactor
+        axesDrawer.drawAxesInRect(rect, origin: origin, pointsPerUnit: scale)
     }
 
 }
