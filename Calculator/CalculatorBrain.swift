@@ -106,9 +106,11 @@ class CalculatorBrain
             if let opObjects = newValue as? Array<AnyObject> {
                 var newOpStack = [Op]()
                 for opObject in opObjects {
-                    if let string = opObject as? String {
-                        if let op = knownOps[string] {
+                    if let symbol = opObject as? String {
+                        if let op = knownOps[symbol] {
                             newOpStack.append(op)
+                        } else {
+                            newOpStack.append(.VariableOperand(symbol))
                         }
                     } else if let number = opObject as? NSNumber {
                         newOpStack.append(.Operand(number.doubleValue))
