@@ -8,6 +8,10 @@
 
 import UIKit
 
+protocol GraphViewDataSource: class {
+    func yForGraphingAtX(x: Double) -> Double
+}
+
 @IBDesignable
 class GraphView: UIView {
     
@@ -24,6 +28,8 @@ class GraphView: UIView {
     }
     
     var scale: CGFloat = 1
+    
+    weak var dataSource: GraphViewDataSource?
 
     // Only override drawRect: if you perform custom drawing.
     // An empty implementation adversely affects performance during animation.

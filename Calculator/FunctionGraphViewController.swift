@@ -8,8 +8,16 @@
 
 import UIKit
 
-class FunctionGraphViewController: UIViewController {
+class FunctionGraphViewController: UIViewController, GraphViewDataSource {
 
+    @IBOutlet weak var graphView: GraphView! {
+        didSet {
+            graphView.dataSource = self
+        }
+    }
     
+    func yForGraphingAtX(x: Double) -> Double {
+        return cos(x)
+    }
 
 }

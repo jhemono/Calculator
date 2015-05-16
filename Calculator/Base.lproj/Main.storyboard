@@ -470,6 +470,9 @@
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" id="iUh-qQ-eLr"/>
+                    <connections>
+                        <outlet property="graphView" destination="fPZ-wZ-W5B" id="mFQ-Gm-26e"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="oc4-bO-Xyt" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
