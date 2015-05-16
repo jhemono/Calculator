@@ -131,5 +131,17 @@ class CalculatorViewController: UIViewController {
         brain.variableValues.removeAll(keepCapacity: true)
         history.text = " "
     }
+    
+    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+        var destination = segue.destinationViewController as? UIViewController
+        if let navigationVC = destination as? UINavigationController {
+            destination = navigationVC.visibleViewController
+        }
+        if let functionGraphVC = destination as? FunctionGraphViewController {
+            if segue.identifier == "Graph" {
+                functionGraphVC.program = brain.program
+            }
+        }
+    }
 }
 
