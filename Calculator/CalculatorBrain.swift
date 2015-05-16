@@ -190,7 +190,7 @@ class CalculatorBrain
     func evaluate () -> Double?
     {
         if let (result, remainder) = evaluate(opStack) {
-            println("\(opStack) = \(result) with \(remainder) left over")
+            // println("\(opStack) = \(result) with \(remainder) left over")
             return result
         } else {
             println("invalid computation for stack \(opStack)")
