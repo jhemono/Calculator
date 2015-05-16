@@ -9,7 +9,7 @@
 import UIKit
 
 protocol GraphViewDataSource: class {
-    func yForGraphingAtX(x: Double) -> Double
+    func yForGraphingAtX(x: Double) -> Double?
 }
 
 @IBDesignable
@@ -121,21 +121,34 @@ class GraphView: UIView {
         let origin = self.origin
         axesDrawer.drawAxesInRect(rect, origin: origin, pointsPerUnit: scale)
         if let dataSource = dataSource {
-            func plotPointforPlotX(x: CGFloat) -> CGPoint {
+            func plotPointforPlotX(x: CGFloat) -> CGPoint? {
                 let dx = Double((x - origin.x) / scale)
-                let dy = dataSource.yForGraphingAtX(dx)
-                let y = (CGFloat(dy) * -scale) + origin.y
-                return CGPoint(x: x, y: y)
+                if let dy = dataSource.yForGraphingAtX(dx) {
+                    if (dy.isNormal || dy.isZero) {
+                        let y = (CGFloat(dy) * -scale) + origin.y
+                        return CGPoint(x: x, y: y)
+                    }
+                }
+                return nil
             }
             print("Plotting")
             UIColor.blackColor().set()
             let path = UIBezierPath()
+            var gap = true
             var x = floor(rect.minX)
             let end = floor(rect.maxX) + 1
-            path.moveToPoint(plotPointforPlotX(x))
             println(" from \(x) to \(end)")
             for (; x <= end ; x += 1) {
-                path.addLineToPoint(plotPointforPlotX(x))
+                if let point = plotPointforPlotX(x) {
+                    if gap {
+                        path.moveToPoint(point)
+                    } else {
+                        path.addLineToPoint(point)
+                    }
+                    gap = false
+                } else {
+                    gap = true
+                }
             }
             path.stroke()
         }

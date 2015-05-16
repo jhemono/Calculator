@@ -10,14 +10,30 @@ import UIKit
 
 class FunctionGraphViewController: UIViewController, GraphViewDataSource {
 
+    private let brain = CalculatorBrain()
+    
+    var program: AnyObject? {
+        set {
+            if let program:AnyObject = newValue {
+                brain.program = program
+                graphView?.setNeedsDisplay()
+                title = last(brain.description)
+            }
+        }
+        get {
+            return brain.program
+        }
+    }
+    
     @IBOutlet weak var graphView: GraphView! {
         didSet {
             graphView.dataSource = self
         }
     }
     
-    func yForGraphingAtX(x: Double) -> Double {
-        return cos(x)
+    func yForGraphingAtX(x: Double) -> Double? {
+        brain.variableValues["M"] = x
+        return brain.evaluate()
     }
 
 }
