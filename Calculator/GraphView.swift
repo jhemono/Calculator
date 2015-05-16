@@ -27,14 +27,32 @@ class GraphView: UIView {
         return CGPoint(x: centre.x + originOffset.x, y: centre.y + originOffset.y)
     }
     
-    var scale: CGFloat = 1
+    var scale: CGFloat = 100
     
     weak var dataSource: GraphViewDataSource?
 
-    // Only override drawRect: if you perform custom drawing.
-    // An empty implementation adversely affects performance during animation.
     override func drawRect(rect: CGRect) {
+        let origin = self.origin
         axesDrawer.drawAxesInRect(rect, origin: origin, pointsPerUnit: scale)
+        if let dataSource = dataSource {
+            func plotPointforPlotX(x: CGFloat) -> CGPoint {
+                let dx = Double((x - origin.x) / scale)
+                let dy = dataSource.yForGraphingAtX(dx)
+                let y = (CGFloat(dy) * -scale) + origin.y
+                return CGPoint(x: x, y: y)
+            }
+            print("Plotting")
+            UIColor.blackColor().set()
+            let path = UIBezierPath()
+            var x = floor(rect.minX)
+            let end = floor(rect.maxX) + 1
+            path.moveToPoint(plotPointforPlotX(x))
+            println(" from \(x) to \(end)")
+            for (; x <= end ; x += 1) {
+                path.addLineToPoint(plotPointforPlotX(x))
+            }
+            path.stroke()
+        }
     }
 
 }
