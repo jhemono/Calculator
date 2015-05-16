@@ -27,8 +27,14 @@ class GraphView: UIView {
     }
     
     var origin: CGPoint { // Position of the origin in the views coordinate system
-        let centre = convertPoint(center, fromView: superview)
-        return CGPoint(x: centre.x + originOffset.x, y: centre.y + originOffset.y)
+        get {
+            let centre = convertPoint(center, fromView: superview)
+            return CGPoint(x: centre.x + originOffset.x, y: centre.y + originOffset.y)
+        }
+        set (newOrigin) {
+            let centre = convertPoint(center, fromView: superview)
+            originOffset = CGPoint(x: newOrigin.x - centre.x, y: newOrigin.y - centre.y)
+        }
     }
     
     @IBInspectable
@@ -56,6 +62,30 @@ class GraphView: UIView {
             }
         default:
             break
+        }
+    }
+    
+    @IBInspectable
+    var originDoubletappable: Bool = false {
+        didSet (oldOriginDoubletappable) {
+            if (originDoubletappable != oldOriginDoubletappable) {
+                if originDoubletappable {
+                    addGestureRecognizer(doubletapRecognizer)
+                } else {
+                    removeGestureRecognizer(doubletapRecognizer)
+                }
+            }
+        }
+    }
+    private lazy var doubletapRecognizer: UITapGestureRecognizer = { [unowned self] in
+        let recognizer = UITapGestureRecognizer(target: self, action: "tapOrigin:")
+        recognizer.numberOfTapsRequired = 2
+        return recognizer
+    }()
+    
+    func tapOrigin(gesture: UITapGestureRecognizer) {
+        if gesture.state == .Ended {
+            origin = gesture.locationInView(self)
         }
     }
     

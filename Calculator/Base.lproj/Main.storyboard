@@ -462,6 +462,7 @@
                                 <userDefinedRuntimeAttributes>
                                     <userDefinedRuntimeAttribute type="boolean" keyPath="pannable" value="YES"/>
                                     <userDefinedRuntimeAttribute type="boolean" keyPath="scalable" value="YES"/>
+                                    <userDefinedRuntimeAttribute type="boolean" keyPath="originDoubletappable" value="YES"/>
                                 </userDefinedRuntimeAttributes>
                             </view>
                         </subviews>
