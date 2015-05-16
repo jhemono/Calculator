@@ -461,6 +461,7 @@
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <userDefinedRuntimeAttributes>
                                     <userDefinedRuntimeAttribute type="boolean" keyPath="pannable" value="YES"/>
+                                    <userDefinedRuntimeAttribute type="boolean" keyPath="scalable" value="YES"/>
                                 </userDefinedRuntimeAttributes>
                             </view>
                         </subviews>

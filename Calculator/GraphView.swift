@@ -23,7 +23,7 @@ class GraphView: UIView {
     // Origin business
     
     var originOffset = CGPointZero { // Position of the origin with repect to the center of the view
-        didSet { self.setNeedsDisplay() }
+        didSet { setNeedsDisplay() }
     }
     
     var origin: CGPoint { // Position of the origin in the views coordinate system
@@ -59,7 +59,30 @@ class GraphView: UIView {
         }
     }
     
-    var scale: CGFloat = 100
+    // Scale business
+    
+    var scale: CGFloat = 100 {
+        didSet { setNeedsDisplay() }
+    }
+    
+    @IBInspectable
+    var scalable: Bool = false {
+        didSet (oldScalable) {
+            if (scalable != oldScalable) {
+                addGestureRecognizer(pinchRecognizer)
+            } else {
+                removeGestureRecognizer(pinchRecognizer)
+            }
+        }
+    }
+    private lazy var pinchRecognizer: UIPinchGestureRecognizer = UIPinchGestureRecognizer(target: self, action: "scale:")
+    
+    func scale(gesture: UIPinchGestureRecognizer) {
+        if gesture.state == .Changed {
+            scale *= gesture.scale
+            gesture.scale = 1
+        }
+    }
     
     weak var dataSource: GraphViewDataSource?
 
