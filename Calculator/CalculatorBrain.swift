@@ -91,6 +91,34 @@ class CalculatorBrain
         return reverse(parts)
     }
     
+    var program: AnyObject {
+        get {
+            return opStack.map { (op: Op) -> AnyObject in
+                switch op {
+                case .Operand(let value):
+                    return NSNumber(double: value)
+                default:
+                    return op.description
+                }
+            }
+        }
+        set {
+            if let opObjects = newValue as? Array<AnyObject> {
+                var newOpStack = [Op]()
+                for opObject in opObjects {
+                    if let string = opObject as? String {
+                        if let op = knownOps[string] {
+                            newOpStack.append(op)
+                        }
+                    } else if let number = opObject as? NSNumber {
+                        newOpStack.append(.Operand(number.doubleValue))
+                    }
+                }
+                opStack = newOpStack
+            }
+        }
+    }
+    
     init()
     {
         func learnOp (op: Op) {
