@@ -61,6 +61,7 @@ class GraphView: UIView {
     
     // Scale business
     
+    @IBInspectable
     var scale: CGFloat = 100 {
         didSet { setNeedsDisplay() }
     }
