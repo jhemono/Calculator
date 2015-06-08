@@ -131,13 +131,13 @@ class GraphView: UIView {
                 }
                 return nil
             }
-            print("Plotting")
+            print("Plotting", appendNewline: false)
             UIColor.blackColor().set()
             let path = UIBezierPath()
             var gap = true
             var x = floor(rect.minX)
             let end = floor(rect.maxX) + 1
-            println(" from \(x) to \(end)")
+            print(" from \(x) to \(end)")
             for (; x <= end ; x += 1) {
                 if let point = plotPointforPlotX(x) {
                     if gap {

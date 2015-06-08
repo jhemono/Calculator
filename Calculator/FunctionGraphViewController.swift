@@ -17,7 +17,7 @@ class FunctionGraphViewController: UIViewController, GraphViewDataSource {
             if let program:AnyObject = newValue {
                 brain.program = program
                 graphView?.setNeedsDisplay()
-                title = last(brain.description)
+                title = brain.description.last
             }
         }
         get {

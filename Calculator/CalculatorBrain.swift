@@ -10,7 +10,7 @@ import Foundation
 
 class CalculatorBrain
 {
-    private enum Op: Printable
+    private enum Op: CustomStringConvertible
     {
         case Operand(Double)
         case VariableOperand(String)
@@ -52,7 +52,7 @@ class CalculatorBrain
     private var opStack = [Op]()
     
     private func describe (stack: [Op]) -> (description: String, remainder: [Op], precedence: Int)? {
-        if let top = last(stack) {
+        if let top = stack.last {
             var remainder = [Op](dropLast(stack))
             switch top {
             case .Operand(_), .VariableOperand(_), .ConstantOperand(_, _):
@@ -88,7 +88,7 @@ class CalculatorBrain
             parts.append(part)
             stack = remainder
         }
-        return reverse(parts)
+        return Array(parts.reverse())
     }
     
     var program: AnyObject {
@@ -193,7 +193,7 @@ class CalculatorBrain
             // println("\(opStack) = \(result) with \(remainder) left over")
             return result
         } else {
-            println("invalid computation for stack \(opStack)")
+            print("invalid computation for stack \(opStack)")
             return nil
         }
     }

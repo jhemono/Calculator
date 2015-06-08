@@ -44,8 +44,8 @@ class CalculatorViewController: UIViewController {
     @IBAction func plusMinus() {
         if userIsInTheMiddleOfTypingANumber {
             var text = display.text!
-            if first(text) == "-" {
-                text = dropFirst(text)
+            if text.characters.first == "-" {
+                text = String(dropFirst(text.characters))
             } else {
                 text.insert("-", atIndex: text.startIndex)
             }
@@ -57,11 +57,11 @@ class CalculatorViewController: UIViewController {
     
     @IBAction func backspace() {
         if userIsInTheMiddleOfTypingANumber {
-            let nbElements = count(display.text!)
+            let nbElements = (display.text!).characters.count
             if nbElements == 1 {
                 initializeEditor()
             } else {
-                display.text = dropLast(display.text!)
+                display.text = String(dropLast((display.text!).characters))
             }
         } else {
             displayValue = brain.pop()
@@ -114,7 +114,7 @@ class CalculatorViewController: UIViewController {
     }
     
     @IBAction func setVariable(sender: UIButton) {
-        let variable = String(dropFirst(sender.currentTitle!))
+        let variable = String(String(dropFirst((sender.currentTitle!).characters)))
         brain.variableValues[variable] = displayValue
         displayValue = brain.evaluate()
         userIsInTheMiddleOfTypingANumber = false
